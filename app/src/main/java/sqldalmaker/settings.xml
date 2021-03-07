@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="settings.xsd">
+
+    <folders target="app/src/main/java" sql="app/src/main/java/sqldalmaker/sql" />
+
+    <dto scope="sdm.android.thesaurus.dto" inheritance="" field-names-mode="1" single-file=""/>
+
+    <dao scope="sdm.android.thesaurus.dao" />
+
+    <external-vm-file path="" />
+
+    <ide event-log="true" />
+
+    <cpp class-prefix=""/>
+
+    <jdbc jar="app/src/main/java/sqldalmaker/sqlite-jdbc-3.32.3.2.jar" class="org.sqlite.JDBC"
+          url="jdbc:sqlite:$PROJECT_DIR$/app/src/main/java/sqldalmaker/thesaurus.sqlite" user="" pwd="" />
+
+    <type-map default="">
+        <!-- On Dev. PC, it is Integer, but in Android run-time it is Long -->
+        <type detected="java.lang.Integer" target="java.lang.Long" />
+    </type-map>
+
+</settings>
