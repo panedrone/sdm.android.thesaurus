@@ -19,8 +19,8 @@ public class ThesaurusDao {
     }
 
     public List<Word> getWordsByKey(String key) throws Exception {
-        String sql = "select * from WORDS" + 
-        "\n where UPPER(w_word) like UPPER(?)" + 
+        String sql = "select * from WORDS" +
+        "\n where UPPER(w_word) like UPPER(?)" +
         "\n order by w_word";
         final List<Word> res = new ArrayList<Word>();
         ds.queryAllRows(sql, new DataStore.RowHandler() {
@@ -36,11 +36,11 @@ public class ThesaurusDao {
     }
 
     public List<RelatedWord> getRelatedWords(Long w_id) throws Exception {
-        String sql = "select" + 
-        "\n rg_part_of_speech," + 
-        "\n rg_order," + 
-        "\n rgw.* from RELATED_GROUPS rg inner join RELATED_GROUP_WORDS rgw on rg.rg_id = rgw.rg_id" + 
-        "\n where rg.w_id = ?" + 
+        String sql = "select" +
+        "\n rg_part_of_speech," +
+        "\n rg_order," +
+        "\n rgw.* from RELATED_GROUPS rg inner join RELATED_GROUP_WORDS rgw on rg.rg_id = rgw.rg_id" +
+        "\n where rg.w_id = ?" +
         "\n order by rg_id, rg.rg_order, rgw.rgw_order";
         final List<RelatedWord> res = new ArrayList<RelatedWord>();
         ds.queryAllRows(sql, new DataStore.RowHandler() {
