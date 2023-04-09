@@ -4,22 +4,26 @@
 
     <folders target="app/src/main/java" sql="app/src/main/java/sqldalmaker/sql" />
 
-    <dto scope="sdm.android.thesaurus.dto" inheritance="" field-names-mode="1" single-file=""/>
+    <dto scope="sdm.android.thesaurus.dto" inheritance="" field-names-mode="1" macro=""/>
 
-    <dao scope="sdm.android.thesaurus.dao" />
-
-    <external-vm-file path="" />
+    <dao scope="sdm.android.thesaurus.dao" field-assign-mode="0" macro=""/>
 
     <ide event-log="true" />
 
     <cpp class-prefix=""/>
 
-    <jdbc jar="app/src/main/java/sqldalmaker/sqlite-jdbc-3.32.3.2.jar" class="org.sqlite.JDBC"
+    <jdbc jar="app/src/main/java/sqldalmaker/sqlite-jdbc-3.41.2.1.jar" class="org.sqlite.JDBC"
           url="jdbc:sqlite:$PROJECT_DIR$/app/src/main/java/sqldalmaker/thesaurus.sqlite" user="" pwd="" />
 
     <type-map default="">
         <!-- On Dev. PC, it is Integer, but in Android run-time it is Long -->
-        <type detected="java.lang.Integer" target="java.lang.Long" />
+        <type detected="java.lang.Integer" target="Long -> getLong"/>
+        <type detected="java.lang.Double" target="Double -> getDouble"/>
+        <type detected="java.lang.String" target="String -> getString"/>
+        <type detected="byte[]" target="byte[] -> getBytes"/>
     </type-map>
+
+    <macros>
+    </macros>
 
 </settings>

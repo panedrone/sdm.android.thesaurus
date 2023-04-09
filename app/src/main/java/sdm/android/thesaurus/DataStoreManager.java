@@ -225,12 +225,7 @@ public class DataStoreManager {
             final Cursor cursor = dataBase.rawQuery(sql, _get_selection_args(params));
             try {
                 if (cursor.moveToFirst()) {
-                    RowData vr = new RowData() {
-                        @Override
-                        public <VT> VT getValue(Class<VT> type, String columnLabel) throws Exception {
-                            return type.cast(_get_value_by_column_label(cursor, columnLabel));
-                        }
-                    };
+                    final RowData vr = new CursorRowData(cursor);
                     do {
                         rowHandler.handleRow(vr);
                     } while (cursor.moveToNext());
@@ -278,10 +273,84 @@ public class DataStoreManager {
             return res;
         }
 
-        private Object _get_value_by_column_label(Cursor cursor, String columnLabel) throws Exception {
-            // columnIndex the zero-based index of the target column.
-            int columnIndex = cursor.getColumnIndexOrThrow(columnLabel);
-            return _get_value_by_column_index(cursor, columnIndex);
+        public class UnexpectedValueType extends Exception {
+
+            public UnexpectedValueType(int type) {
+                super("Unexpected value type: " + type);
+            }
+        }
+
+
+        private class CursorRowData implements RowData {
+
+            final Cursor cursor;
+
+            CursorRowData(Cursor cursor) {
+                this.cursor = cursor;
+            }
+
+            @Override
+            public <VT> VT getValue(Class<VT> type, String columnLabel) throws Exception {
+                return type.cast(_get_value_by_column_label(cursor, columnLabel));
+            }
+
+            @Override
+            public Long getLong(String columnLabel) throws Exception {
+                int columnIndex = cursor.getColumnIndexOrThrow(columnLabel);
+                int type = cursor.getType(columnIndex);
+                switch (type) {
+                    case Cursor.FIELD_TYPE_NULL:
+                        return null;
+                    case Cursor.FIELD_TYPE_INTEGER:
+                        return cursor.getLong(columnIndex);
+                }
+                throw new UnexpectedValueType(type);
+            }
+
+            @Override
+            public Double getDouble(String columnLabel) throws Exception {
+                int columnIndex = cursor.getColumnIndexOrThrow(columnLabel);
+                int type = cursor.getType(columnIndex);
+                switch (type) {
+                    case Cursor.FIELD_TYPE_NULL:
+                        return null;
+                    case Cursor.FIELD_TYPE_FLOAT:
+                        return cursor.getDouble(columnIndex);
+                }
+                throw new UnexpectedValueType(type);
+            }
+
+            @Override
+            public String getString(String columnLabel) throws Exception {
+                int columnIndex = cursor.getColumnIndexOrThrow(columnLabel);
+                int type = cursor.getType(columnIndex);
+                switch (type) {
+                    case Cursor.FIELD_TYPE_NULL:
+                        return null;
+                    case Cursor.FIELD_TYPE_STRING:
+                        return cursor.getString(columnIndex);
+                }
+                throw new UnexpectedValueType(type);
+            }
+
+            @Override
+            public byte[] getBytes(String columnLabel) throws Exception {
+                int columnIndex = cursor.getColumnIndexOrThrow(columnLabel);
+                int type = cursor.getType(columnIndex);
+                switch (type) {
+                    case Cursor.FIELD_TYPE_NULL:
+                        return null;
+                    case Cursor.FIELD_TYPE_BLOB:
+                        return cursor.getBlob(columnIndex);
+                }
+                throw new UnexpectedValueType(type);
+            }
+
+            private Object _get_value_by_column_label(Cursor cursor, String columnLabel) throws Exception {
+                // columnIndex the zero-based index of the target column.
+                int columnIndex = cursor.getColumnIndexOrThrow(columnLabel);
+                return _get_value_by_column_index(cursor, columnIndex);
+            }
         }
 
         private Object _get_value_by_column_index(Cursor cursor, int columnIndex) throws Exception {
@@ -304,7 +373,7 @@ public class DataStoreManager {
                     res = cursor.getBlob(columnIndex);
                     break;
                 default:
-                    throw new Exception("Unexpected value type: " + type);
+                    throw new UnexpectedValueType(type);
             }
             return res;
         }
