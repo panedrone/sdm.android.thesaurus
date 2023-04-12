@@ -354,28 +354,20 @@ public class DataStoreManager {
         }
 
         private Object _get_value_by_column_index(Cursor cursor, int columnIndex) throws Exception {
-            Object res;
             int type = cursor.getType(columnIndex);
             switch (type) {
                 case Cursor.FIELD_TYPE_NULL:
-                    res = null;
-                    break;
+                    return null;
                 case Cursor.FIELD_TYPE_INTEGER:
-                    res = cursor.getLong(columnIndex);
-                    break;
+                    return cursor.getLong(columnIndex);
                 case Cursor.FIELD_TYPE_FLOAT:
-                    res = cursor.getDouble(columnIndex);
-                    break;
+                    return cursor.getDouble(columnIndex);
                 case Cursor.FIELD_TYPE_STRING:
-                    res = cursor.getString(columnIndex);
-                    break;
+                    return cursor.getString(columnIndex);
                 case Cursor.FIELD_TYPE_BLOB:
-                    res = cursor.getBlob(columnIndex);
-                    break;
-                default:
-                    throw new UnexpectedValueType(type);
+                    return cursor.getBlob(columnIndex);
             }
-            return res;
+            throw new UnexpectedValueType(type);
         }
     }
 }
