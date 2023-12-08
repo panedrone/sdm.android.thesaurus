@@ -10,8 +10,6 @@
 
     <ide event-log="true" />
 
-    <cpp class-prefix=""/>
-
     <jdbc jar="app/src/main/java/sqldalmaker/sqlite-jdbc-3.41.2.1.jar" class="org.sqlite.JDBC"
           url="jdbc:sqlite:$PROJECT_DIR$/app/src/main/java/sqldalmaker/thesaurus.sqlite" user="" pwd="" />
 
@@ -20,6 +18,7 @@
         <type detected="java.lang.Integer" target="Long -> getLong"/>
         <type detected="java.lang.Double" target="Double -> getDouble"/>
         <type detected="java.lang.String" target="String -> getString"/>
+        <type detected="java.lang.Object" target="Object"/>
         <type detected="byte[]" target="byte[] -> getBytes"/>
     </type-map>
 
