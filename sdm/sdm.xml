@@ -1,13 +1,5 @@
-# sdm_demo_android_thesaurus
-Quick Demo of how to use [SQL DAL Maker](https://github.com/panedrone/sqldalmaker) + Java/Android.
-
-![demo-android1.png](demo-android1.png)
-
-sdm.xml
-
-```xml
-
-<sdm>
+<?xml version="1.0" encoding="UTF-8"?>
+<sdm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="sdm.xsd">
 
     <dto-class name="Word" ref="WORDS" />
 
@@ -22,4 +14,3 @@ sdm.xml
     </dao-class>
 
 </sdm>
-```

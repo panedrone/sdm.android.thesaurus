@@ -2,7 +2,7 @@
 <settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="settings.xsd">
 
-    <folders target="app/src/main/java" sql="app/src/main/java/sqldalmaker/sql" />
+    <folders target="app/src/main/java" sql="sdm/sql" />
 
     <dto scope="sdm.android.thesaurus.dto" inheritance="" field-names-mode="1" macro=""/>
 
@@ -10,7 +10,7 @@
 
     <ide event-log="true" />
 
-    <jdbc jar="app/src/main/java/sqldalmaker/sqlite-jdbc-3.41.2.1.jar" class="org.sqlite.JDBC"
+    <jdbc jar="sdm/sqlite-jdbc-3.41.2.1.jar" class="org.sqlite.JDBC"
           url="jdbc:sqlite:$PROJECT_DIR$/app/src/main/java/sqldalmaker/thesaurus.sqlite" user="" pwd="" />
 
     <type-map default="">
