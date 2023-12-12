@@ -11,14 +11,11 @@ sdm.xml
 
     <dto-class name="Word" ref="WORDS" />
 
-    <dto-class name="RelatedWord" ref="thesaurus/getRelatedWords.sql" />
+    <dto-class name="RelatedWord" ref="thesaurus/getRelatedWords.sql"/>
 
     <dao-class name="ThesaurusDao">
-
-        <query-dto-list dto="Word" method="getWordsByKey(key)" ref="thesaurus/getWordsByKey.sql" />
-
-        <query-dto-list dto="RelatedWord" method="getRelatedWords(Long w_id)" />
-
+        <query-dto-list dto="Word" method="getWordsByKey(key)" ref="getWordsByKey.sql"/>
+        <query-dto-list dto="RelatedWord" method="getRelatedWords(Long w_id)"/>
     </dao-class>
 
 </sdm>
