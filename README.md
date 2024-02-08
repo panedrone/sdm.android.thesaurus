@@ -1,6 +1,6 @@
 # sdm_thesaurus_android
 
-A project demonstrating how to use [SQL DAL Maker](https://github.com/panedrone/sqldalmaker) + Java/Android.
+A project demonstrating how to use [SQL DAL Maker](https://github.com/panedrone/sqldalmaker) + Java/Android/SQLite3.
 
 ![demo-android1.png](demo-android1.png)
 
